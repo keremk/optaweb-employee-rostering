@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    container_name: pg_container
+    ports:
+        - 5432:5432
+    volumes:
+        - pgdata:/var/lib/postgresql/data
+
+  app:
+    image: optaweb/employee-rostering
+    container_name: roster
+    ports:
+        - 8080:8080
+    links:
+        - database
+    environment:
+        - SPRING_PROFILES_ACTIVE=production 
+        - DATABASE_USER=optaweb
+        - DATABASE_PASSWORD=lay123lom6a
+        - DATABASE_HOST=database
+        - DATABASE_NAME=roster
+    depends_on:
+        - database
+
+volumes:
+  pgdata: {}
