@@ -77,9 +77,10 @@ Refer to the https://docs.optaplanner.org/latestFinal/optaplanner-docs/html_sing
 
 In order to start running the database(Postgres) and the application, run the below command in your terminal:
 
----
+[source,shell]
+----
 docker-compose up
----
+----
 
 This will bring the database up and also the application. But the application will quit because the necessary database configuration is not setup yet. So you need to configure the database. To do that:
 
@@ -89,36 +90,40 @@ Once you install psql, you can start configuring the database. In a separate ter
 
 1. Connect to the database, by typing the below in command line in a new terminal tab/window:
 
----
+[source,shell]
+----
 psql -h localhost -U postgres
----
+----
 
 2. You will see the commandline prompt. First create the user that will access the database from the app. Type below in the psql command prompt:
 
----
+[source,shell]
+----
 CREATE USER optaweb WITH PASSWORD 'lay123lom6a' CREATEDB;
----
+----
 
 3. Now you need to create the database where the data will be stored. Type below in the psql command prompt:
 
----
+[source,shell]
+----
 CREATE DATABASE roster OWNER optaweb;
----
+----
 
 Now you can quit the psql client. Postgres is configured with a user and a fresh new database.
 
 You can now stop the docker-compose either by typing CTRL-C in the terminal tab/window the docker-compose was running or do the below in the same folder your docker-compose.yml file is:
 
----
+[source,shell]
+----
 docker-compose down
----
+----
 
 Now everything is down. Bring them back up by typing:
 
----
+[source,shell]
+----
 docker-compose up
----
-
+----
 
 Both the app and the database should be running at this stage. Open a browser window and navigate to http://localhost:8080 to see the app running.
 
