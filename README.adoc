@@ -73,6 +73,56 @@ config file for the benchmarker changes to be applied.
 Refer to the https://docs.optaplanner.org/latestFinal/optaplanner-docs/html_single/index.html#benchmarker[OptaPlanner
  Docs] for more information on benchmark tweaking.
 
+== Running using Docker Compose locally
+
+In order to start running the database(Postgres) and the application, run the below command in your terminal:
+
+---
+docker-compose up
+---
+
+This will bring the database up and also the application. But the application will quit because the necessary database configuration is not setup yet. So you need to configure the database. To do that:
+
+First you need to install the Postgres client. Here is a https://blog.timescale.com/tutorials/how-to-install-psql-on-mac-ubuntu-debian-windows/[tutorial] to do that for various platforms. Don't quit the previous terminal tab/window and install the Postgres client in a separate tab/window.
+
+Once you install psql, you can start configuring the database. In a separate terminal tab/window (keep Postgres running from the previous step), follow the below steps.
+
+1. Connect to the database, by typing the below in command line in a new terminal tab/window:
+
+---
+psql -h localhost -U postgres
+---
+
+2. You will see the commandline prompt. First create the user that will access the database from the app. Type below in the psql command prompt:
+
+---
+CREATE USER optaweb WITH PASSWORD 'lay123lom6a' CREATEDB;
+---
+
+3. Now you need to create the database where the data will be stored. Type below in the psql command prompt:
+
+---
+CREATE DATABASE roster OWNER optaweb;
+---
+
+Now you can quit the psql client. Postgres is configured with a user and a fresh new database.
+
+You can now stop the docker-compose either by typing CTRL-C in the terminal tab/window the docker-compose was running or do the below in the same folder your docker-compose.yml file is:
+
+---
+docker-compose down
+---
+
+Now everything is down. Bring them back up by typing:
+
+---
+docker-compose up
+---
+
+
+Both the app and the database should be running at this stage. Open a browser window and navigate to http://localhost:8080 to see the app running.
+
+
 == Running on a local OpenShift cluster
 
 Use https://developers.redhat.com/products/codeready-containers[Red Hat CodeReady Containers]

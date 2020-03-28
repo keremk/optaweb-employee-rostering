@@ -10,7 +10,7 @@ services:
         - pgdata:/var/lib/postgresql/data
 
   app:
-    image: optaweb/employee-rostering
+    image: keremk/rostering:latest
     container_name: roster
     ports:
         - 8080:8080
